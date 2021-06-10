@@ -1,0 +1,34 @@
+.main-background {
+  background-color: var(--accent-color);
+  height: 89.7%;
+  text-align: center;
+}
+
+:disabled {
+  color: black;
+}
+
+.Card {
+  display: inline-block;
+  width: 40%;
+  text-align: left;
+  margin-top: 1%;
+  height: 45vh;
+}
+
+.form {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-right: 5%;
+  margin-top: 7%;
+}
+
+button {
+  background-color: var(--primary-color);
+}
+
+.nav-icon {
+  color: black;
+}
+

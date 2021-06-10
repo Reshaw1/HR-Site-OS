@@ -1,0 +1,195 @@
+<div class="login-nav-bar">
+  <button mat-button class="nav-button logo-img-container" [routerLinkActive]="['link-active']" [routerLink]="['/']">
+    <img class="logo-img" src="../../assets/Images/HR Logo 3.png">
+  </button>
+  <div class="title" [routerLink]="['/']">
+    <h1 >HR Site</h1>
+  </div>
+  <div class="">
+
+  </div>
+
+</div>
+<div class="main-login-div">
+  <mat-card class="card">
+    <mat-card-content>
+        <mat-tab-group #tabGroup  mat-stretch-tabs class="tabs">
+          <mat-tab label="Login">
+            <ng-template matTabContent>
+              <div class="form-div">
+                <form class="form" #loginform="ngForm">
+                  <div class="input-container">
+                    <mat-form-field>
+                      <input matInput type="text" [(ngModel)]="userOrMail" name="usermail" placeholder="Username o Email" #useroremail="ngModel" required>
+                      <!-- <button mat-button *ngIf="userOrMail" matSuffix mat-icon-button aria-label="Clear" (click)="userOrMail = ''">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon">close</mat-icon>
+                      </button> -->
+                    </mat-form-field>
+                    <div *ngIf="useroremail.invalid && (useroremail.dirty || useroremail.touched)" class="alert alert-danger">
+                      <div *ngIf="useroremail.errors.required">
+                        El nombre de usuario o correo es obligatorio.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="input-container">
+                    <mat-form-field>
+                      <input matInput type="password" [(ngModel)]="password" name="password" placeholder="Password" #Tpassword="ngModel" required>
+                      <!-- <button mat-button *ngIf="" matSuffix mat-icon-button aria-label="Clear">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon">close</mat-icon>
+                      </button> -->
+                    </mat-form-field>
+                    <div *ngIf="Tpassword.invalid && (Tpassword.dirty || Tpassword.touched)" class="alert alert-danger">
+                      <div *ngIf="Tpassword.errors.required">
+                        La contraseña es obligatoria.
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="authenticationFailed" class="alert alert-danger">
+                    La contraseña o el usuario son incorrectos
+                  </div>
+                  <div class="btns">
+                    <button mat-raised-button class="back-button" type="submit" (click)="onLogin()">
+                      <a class="nav-link text-light">Login</a>
+                    </button>
+                  </div>
+                </form>
+                <div class="filler-container">
+                  <img class="img-filler" src="../../assets/Images/HR-filler-img.jpg">
+                </div>
+            </div>
+            </ng-template>
+          </mat-tab>
+          <mat-tab label="Register">
+            <ng-template matTabContent>
+              <div class="form-div">
+                <form class="form2" #personform="ngForm">
+                  <div class="input-container">
+                    <mat-form-field>
+                      <input matInput type="text" [(ngModel)]="newUser.sysUser_Person.serson_Name" name="name" placeholder="Nombre Completo" #fullname="ngModel" required>
+                      <button mat-button *ngIf="newUser.sysUser_Person.person_Name" matSuffix mat-icon-button aria-label="Clear" (click)="newUser.sysUser_Person.person_Name = ''">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon">close</mat-icon>
+                      </button>
+                    </mat-form-field>
+                    <div *ngIf="fullname.invalid && (fullname.dirty || fullname.touched)" class="alert alert-danger">
+                      <div *ngIf="fullname.errors.required">
+                        El nombre es obligatorio.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="input-container">
+                    <mat-form-field>
+                      <input matInput type="email" [(ngModel)]="newUser.sysUser_Person.person_Email" name="email" placeholder="Correo" #email="ngModel" required>
+                      <button mat-button *ngIf="newUser.sysUser_Person.person_Email" matSuffix mat-icon-button aria-label="Clear" (click)="newUser.sysUser_Person.person_Email = ''">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon">close</mat-icon>
+                      </button>
+                    </mat-form-field>
+                    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+                      <div *ngIf="email.errors.required">
+                        El correo es obligatorio.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="input-container">
+                    <mat-form-field>
+                      <input matInput
+                        type="text"
+                        pattern="([0-9]{3})+-([0-9]{7})+-([0-9]{1})"
+                        [(ngModel)]="newUser.sysUser_Person.person_Card_Id"
+                        name="cardId"
+                        placeholder="Cedula"
+                        #cardId="ngModel"
+                        required
+                      >
+                      <button mat-button *ngIf="newUser.sysUser_Person.person_Card_Id" matSuffix mat-icon-button aria-label="Clear" (click)="newUser.SysUser_Person.Person_Card_Id = ''">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon">close</mat-icon>
+                      </button>
+                    </mat-form-field>
+                    <div *ngIf="cardId.invalid && (cardId.dirty || cardId.touched)" class="alert alert-danger">
+                      <div *ngIf="cardId.errors.required">
+                        La Cedula es obligatoria.
+                      </div>
+                      <div *ngIf="cardId.errors.pattern">La Cedula debe tener el formato "000-0000000-0"</div>
+                    </div>
+                  </div>
+                  <div class="input-container">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Fecha de Nacimiento</mat-label>
+                      <input matInput [matDatepicker]="picker" [(ngModel)]="newUser.sysUser_Person.person_Birthday" name="date" (focus)="picker.open()" #birthday="ngModel" required>
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                    <div *ngIf="birthday.invalid && (birthday.dirty || birthday.touched)" class="alert alert-danger">
+                      <div *ngIf="birthday.errors.required">
+                        La fecha de nacimiento es obligatoria.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="input-container">
+                    <mat-form-field class='input-client'>
+                      <mat-label>Genero</mat-label>
+                      <mat-select name="genero" required [(ngModel)]="genre" name="client" [(value)]="genre" #Tgenre="ngModel">
+                        <mat-option *ngFor="let item of genres" [value]="item">
+                          {{item}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <div *ngIf="Tgenre.invalid && (Tgenre.dirty || Tgenre.touched)" class="alert alert-danger">
+                      <div *ngIf="Tgenre.errors.required">
+                        El genero es obligatorio.
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <form class="form3" #userform="ngForm">
+                  <div class="input-container">
+                    <mat-form-field>
+                      <input matInput type="text" [(ngModel)]="newUser.sysUser_Username" name="username" placeholder="Username" #username="ngModel" required>
+                      <button mat-button *ngIf="newUser.sysUser_Username" matSuffix mat-icon-button aria-label="Clear" (click)="newUser.sysUser_Username = ''">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon">close</mat-icon>
+                      </button>
+                    </mat-form-field>
+                    <div *ngIf="username.invalid && (username.dirty || username.touched)" class="alert alert-danger">
+                      <div *ngIf="username.errors.required">
+                        El nombre de usuario es obligatorio.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="input-container">
+                    <mat-form-field>
+                      <input matInput type="password" [(ngModel)]="newUser.sysUser_Password" name="password1" placeholder="Contraseña" #password1="ngModel" required>
+                      <button mat-button *ngIf="newUser.sysUser_Password" matSuffix mat-icon-button aria-label="Clear" (click)="newUser.sysUser_Password = ''">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon">close</mat-icon>
+                      </button>
+                    </mat-form-field>
+                    <div *ngIf="password1.invalid && (password1.dirty || password1.touched)" class="alert alert-danger">
+                      <div *ngIf="password1.errors.required">
+                        La contraseña es obligatoria.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="input-container">
+                    <mat-form-field>
+                      <input matInput type="password" [(ngModel)]="confirmPassword" name="password2" placeholder="Contraseña" #password2="ngModel" (blur)="onCheckPassword()" required>
+                      <button mat-button *ngIf="confirmPassword" matSuffix mat-icon-button aria-label="Clear" (click)="confirmPassword = ''">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon">close</mat-icon>
+                      </button>
+                    </mat-form-field>
+                    <div *ngIf="password2.invalid && (password2.dirty || password2.touched)" class="alert alert-danger">
+                      <div *ngIf="password2.errors.required">
+                        La confirmacion de contraseña es obligatoria.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="btns">
+                    <button mat-raised-button class="back-button" type="submit" (click)="onRegister()" [disabled]="personform.invalid || userform.invalid">
+                      <a class="nav-link text-light">Register</a>
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </ng-template>
+          </mat-tab>
+        </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
+</div>

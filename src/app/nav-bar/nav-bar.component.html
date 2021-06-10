@@ -1,0 +1,30 @@
+<div class="login-nav-bar">
+  <button mat-button class="nav-button logo-img-container" [routerLinkActive]="['link-active']" [routerLink]="['/']">
+    <img class="logo-img" src="../../assets/Images/HR Logo 3.png">
+  </button>
+  <div class="title" [routerLink]="['/']">
+    <h1 >HR Site</h1>
+  </div>
+  <div *ngIf="User.sysUser_Type == 'Candidate'" class="candidate-options">
+    <button mat-raised-button class="button" (click)="onApplyNav()">
+      <mat-icon aria-hidden="false" class="nav-icon">upload_file</mat-icon>
+      <a class="nav-link text-light">Aplicar a un puesto</a>
+    </button>
+  </div>
+  <div *ngIf="User.sysUser_Type == 'Employee'" class="employee-options">
+    <button mat-raised-button class="button" (click)="onCandNav()">
+      <mat-icon aria-hidden="false" class="nav-icon">edit</mat-icon>
+      <a class="nav-link text-light">Gestionar Candidatos</a>
+    </button>
+    <button mat-raised-button class="button" (click)="onEmpNav()">
+      <mat-icon aria-hidden="false" class="nav-icon">edit</mat-icon>
+      <a class="nav-link text-light">Gestionar Empleados</a>
+    </button>
+  </div>
+  <div class="logout">
+    <button mat-raised-button class="button">
+      <mat-icon aria-hidden="false" class="nav-icon">logout</mat-icon>
+      <a class="nav-link text-light">Logout</a>
+    </button>
+  </div>
+</div>

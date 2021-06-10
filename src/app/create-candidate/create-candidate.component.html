@@ -1,0 +1,137 @@
+<div class="main-background">
+  <mat-card class="Card" *ngIf="stage == 1">
+    <mat-card-title>
+      Informacion Personal
+    </mat-card-title>
+    <mat-card-content>
+      <form class="form">
+        <div class= "grouped-inputs">
+          <div class="input-container">
+            <mat-form-field appearance="fill">
+              <mat-label>Nombre</mat-label>
+              <input matInput type="text" [(ngModel)]="candidate.candidate_Person.person_Name" name="name" #fullname="ngModel" disabled>
+            </mat-form-field>
+          </div>
+          <div class="input-container">
+            <mat-form-field appearance="fill">
+              <mat-label>Correo</mat-label>
+              <input matInput type="email" [(ngModel)]="candidate.candidate_Person.person_Email" name="mail" #email="ngModel" disabled>
+            </mat-form-field>
+          </div>
+          <div class="input-container">
+            <mat-form-field appearance="fill">
+              <mat-label>Cedula</mat-label>
+              <input matInput type="text" [(ngModel)]="candidate.candidate_Person.person_Card_Id" name="card" #cardId="ngModel" disabled>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="grouped-inputs">
+          <div class="input-container">
+            <mat-form-field appearance="fill">
+              <mat-label>Fecha de Nacimiento</mat-label>
+              <input matInput [matDatepicker]="picker" [(ngModel)]="candidate.candidate_Person.person_Birthday" name="date" (focus)="picker.open()" #birthday="ngModel" disabled>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="input-container">
+            <mat-form-field appearance="fill">
+              <mat-label>Genero</mat-label>
+              <mat-select name="genero" required [(ngModel)]="genre" name="client" [(value)]="genre" #Tgenre="ngModel" disabled>
+                <mat-option *ngFor="let item of genres" [value]="item">
+                  {{item}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div>
+            <button mat-raised-button type="button" class="button" (click)="onGoToNextStage()">
+              <a class="nav-link text-light">Continuar</a>
+              <mat-icon aria-hidden="false" class="nav-icon">arrow_forward</mat-icon>
+            </button>
+          </div>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="Card" *ngIf="stage == 2">
+    <mat-card-title>
+      Informacion Laboral
+    </mat-card-title>
+    <mat-card-content>
+      <form class="form">
+        <div class= "grouped-inputs">
+          <div class="input-container">
+            <mat-form-field>
+              <mat-label>Puesto Deseado</mat-label>
+              <mat-select
+              [(ngModel)]="candidate.candidate_Desired_Job.job_Id"
+              name="desired job"
+              [(value)]="candidate.candidate_Desired_Job.job_Id"
+              required
+              (selectionChange)="onSelectionChanged($event)"
+              #desJob="ngModel">
+                <mat-option *ngFor="let item of Jobs" [value]="item.job_Id">
+                  {{item.job_Name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div *ngIf="desJob.invalid && (desJob.dirty || desJob.touched)" class="alert alert-danger">
+              <div *ngIf="desJob.errors.required">
+                El puesto deseado es obligatorio.
+              </div>
+            </div>
+          </div>
+          <div class="input-container">
+            <mat-form-field appearance="fill">
+              <mat-label>Salario Deseado</mat-label>
+              <input
+                matInput
+                type="text"
+                [(ngModel)]="salaryString"
+                name="Salary"
+                required
+                #salary="ngModel"
+                (blur)="onBlurSalary()"
+              />
+          </mat-form-field>
+          <div *ngIf="salary.invalid && (salary.dirty || salary.touched)" class="alert alert-danger">
+            <div *ngIf="salary.errors.required">
+              El Salario Deseado es obligatorio.
+            </div>
+          </div>
+          </div>
+        </div>
+        <div class="grouped-inputs">
+          <div class="input-container">
+            <mat-form-field appearance="fill">
+                <mat-label>Descripcion del trabajo</mat-label>
+                <textarea matInput [(ngModel)]="jobDescription" name="description" #description="ngModel" disabled>
+                </textarea>
+            </mat-form-field>
+          </div>
+          <div class="input-container">
+            <mat-form-field appearance="fill">
+                <mat-label>Recomendador</mat-label>
+                <mat-select
+                [(ngModel)]="candidate.candidate_Recommender_Employee.employee_Id"
+                name="recomender"
+                [(value)]="candidate.candidate_Recommender_Employee.employee_Id"
+                #recomender="ngModel">
+                  <mat-option *ngFor="let item of Employees" [value]="item.employee_Id">
+                    {{item.employee_Person.person_Name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+          </div>
+          <div>
+            <button mat-raised-button type="button" class="button" (click)="onGoToNextStage()">
+              <a class="nav-link text-light">Continuar</a>
+              <mat-icon aria-hidden="false" class="nav-icon">arrow_forward</mat-icon>
+            </button>
+          </div>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
