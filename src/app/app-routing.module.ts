@@ -5,7 +5,10 @@ import { CreateCandidateComponent } from './create-candidate/create-candidate.co
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { ManageCandidatesComponent } from './manage-candidates/manage-candidates.component';
+import { ManageDepartmentsComponent } from './manage-departments/manage-departments.component';
 import { ManageEmployeesComponent } from './manage-employees/manage-employees.component';
+import { ManageJobsComponent } from './manage-jobs/manage-jobs.component';
+import { ManageLanguajesComponent } from './manage-languajes/manage-languajes.component';
 
 const routes: Routes = [
   { path: "", component: AppComponent, pathMatch: "full" },
@@ -14,6 +17,9 @@ const routes: Routes = [
   { path: "create-candidate", component: CreateCandidateComponent },
   { path: "manage-candidates", component: ManageCandidatesComponent },
   { path: "manage-employees", component: ManageEmployeesComponent },
+  { path: "manage-languajes", component: ManageLanguajesComponent },
+  { path: "manage-departments", component: ManageDepartmentsComponent },
+  { path: "manage-jobs", component: ManageJobsComponent },
 ];
 
 @NgModule({

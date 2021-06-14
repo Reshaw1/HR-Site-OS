@@ -59,7 +59,7 @@
       Informacion Laboral
     </mat-card-title>
     <mat-card-content>
-      <form class="form">
+      <form class="form" #LaboralForm="ngForm">
         <div class= "grouped-inputs">
           <div class="input-container">
             <mat-form-field>
@@ -101,15 +101,6 @@
             </div>
           </div>
           </div>
-        </div>
-        <div class="grouped-inputs">
-          <div class="input-container">
-            <mat-form-field appearance="fill">
-                <mat-label>Descripcion del trabajo</mat-label>
-                <textarea matInput [(ngModel)]="jobDescription" name="description" #description="ngModel" disabled>
-                </textarea>
-            </mat-form-field>
-          </div>
           <div class="input-container">
             <mat-form-field appearance="fill">
                 <mat-label>Recomendador</mat-label>
@@ -123,15 +114,423 @@
                   </mat-option>
                 </mat-select>
               </mat-form-field>
+            </div>
+        </div>
+        <div class="grouped-inputs">
+          <div class="input-container">
+            <mat-form-field appearance="fill">
+                <mat-label>Descripcion del trabajo</mat-label>
+                <textarea class="job-description" matInput [(ngModel)]="jobDescription" name="description" #description="ngModel" disabled>
+                </textarea>
+            </mat-form-field>
           </div>
+
           <div>
-            <button mat-raised-button type="button" class="button" (click)="onGoToNextStage()">
+            <button mat-raised-button type="button" class="button" [disabled]="LaboralForm.invalid" (click)="onGoToNextStage()">
               <a class="nav-link text-light">Continuar</a>
               <mat-icon aria-hidden="false" class="nav-icon">arrow_forward</mat-icon>
             </button>
           </div>
         </div>
       </form>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="Card2" *ngIf="stage == 3">
+    <mat-card-title>
+      Competencias
+    </mat-card-title>
+    <mat-card-content>
+      <form  class="form-2" #CompetencyForm="ngForm">
+        <div class= "grouped-inputs">
+          <div class="input-container">
+            <mat-form-field appearance="fill">
+              <mat-label>Nombre</mat-label>
+              <input matInput type="text" [(ngModel)]="competency.competency_Name" name="cname" #cname="ngModel">
+            </mat-form-field>
+          <div *ngIf="cname.invalid && (cname.dirty || cname.touched)" class="alert alert-danger">
+            <div *ngIf="cname.errors.required">
+              El nombre de la competencia es obligatorio.
+            </div>
+          </div>
+          </div>
+          <div class="input-container">
+            <mat-form-field>
+              <mat-label>Tipo de Competencia</mat-label>
+              <mat-select
+              [(ngModel)]="competencyType"
+              name="competencyType"
+              [(value)]="competencyType"
+              required
+              #cType="ngModel">
+                <mat-option *ngFor="let item of competencyTypes" [value]="item">
+                  {{item}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div *ngIf="cType.invalid && (cType.dirty || cType.touched)" class="alert alert-danger">
+              <div *ngIf="cType.errors.required">
+                El tipo de competencia es obligatorio.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="grouped-inputs">
+          <div class="input-container">
+            <mat-form-field appearance="fill">
+                <mat-label>Descripcion de la competencia</mat-label>
+                <textarea class="competency-description" matInput [(ngModel)]="competency.competency_Description" name="cdescription" #cdescription="ngModel" required>
+                </textarea>
+            </mat-form-field>
+            <div *ngIf="cdescription.invalid && (cdescription.dirty || cdescription.touched)" class="alert alert-danger">
+              <div *ngIf="cdescription.errors.required">
+                La descripcion de la competencia es obligatoria.
+              </div>
+            </div>
+          </div>
+          <div >
+            <button mat-raised-button type="button" class="button" [disabled]="CompetencyForm.invalid" (click)="onAddToCompetencyGrid(CompetencyForm)">
+              <a class="nav-link text-light">Agregar</a>
+              <mat-icon aria-hidden="false" class="nav-icon">add</mat-icon>
+            </button>
+          </div>
+        </div>
+      </form>
+      <ag-grid-angular
+      class="ag-theme-material data-grid"
+      #myGrid
+      [columnDefs]="columnDefsCompetency"
+      [defaultColDef]="defaultColDef"
+      rowSelection="single"
+      [pagination]="true"
+      [paginationAutoPageSize]="true"
+      [suppressRowClickSelection]="true"
+      [rowData]="rowDataCompetency"
+      [stopEditingWhenGridLosesFocus]="true"
+      [gridOptions]="competencyGridOptions"
+    >
+    </ag-grid-angular>
+      <div class="grid-continue">
+        <button mat-raised-button type="button" class="button" (click)="onGoToNextStage()">
+          <a class="nav-link text-light">Continuar</a>
+          <mat-icon aria-hidden="false" class="nav-icon">arrow_forward</mat-icon>
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="Card2" *ngIf="stage == 4">
+    <mat-card-title>
+      Formacion
+    </mat-card-title>
+    <mat-card-content>
+      <form  class="form-2" #formationForm="ngForm">
+        <div class= "grouped-inputs">
+          <div class="input-container">
+            <mat-form-field appearance="fill">
+              <mat-label>Descripcion</mat-label>
+              <input matInput type="text" [(ngModel)]="formation.formation_Description" name="fdescription" #fdescription="ngModel">
+            </mat-form-field>
+          <div *ngIf="fdescription.invalid && (fdescription.dirty || fdescription.touched)" class="alert alert-danger">
+            <div *ngIf="fdescription.errors.required">
+              La descripcion es obligatoria.
+            </div>
+          </div>
+          </div>
+          <div class="input-container">
+            <mat-form-field>
+              <mat-label>Nivel de Formacion</mat-label>
+              <mat-select
+              [(ngModel)]="formationLevel"
+              name="formationLevel"
+              [(value)]="formationLevel"
+              required
+              #fType="ngModel">
+                <mat-option *ngFor="let item of formationLevels" [value]="item">
+                  {{item}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div *ngIf="fType.invalid && (fType.dirty || fType.touched)" class="alert alert-danger">
+              <div *ngIf="fType.errors.required">
+                El nivel de formacion es obligatorio.
+              </div>
+            </div>
+          </div>
+          <div class="input-container">
+            <mat-form-field appearance="fill">
+              <mat-label>Institucion</mat-label>
+              <input matInput type="text" [(ngModel)]="formation.formation_Institution" name="finstitution" #finstitution="ngModel">
+            </mat-form-field>
+          <div *ngIf="finstitution.invalid && (finstitution.dirty || finstitution.touched)" class="alert alert-danger">
+            <div *ngIf="finstitution.errors.required">
+              La institucion es obligatoria.
+            </div>
+          </div>
+          </div>
+        </div>
+        <div class="grouped-inputs">
+          <div class="input-container">
+            <mat-form-field appearance="fill">
+              <mat-label>Fecha de Inicio</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker"
+                [(ngModel)]="formation.formation_Start_Date"
+                name="fsdate"
+                (focus)="picker.open()"
+                #fsdate="ngModel"
+                required
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <div *ngIf="fsdate.invalid && (fsdate.dirty || fsdate.touched)" class="alert alert-danger">
+              <div *ngIf="fsdate.errors.required">La fecha de inicio es obligatoria.</div>
+            </div>
+          </div>
+          <div class="input-container">
+            <mat-form-field appearance="fill">
+              <mat-label>Fecha de finalizacion</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker2"
+                [(ngModel)]="formation.formation_Final_Date"
+                name="ffdate"
+                (focus)="picker2.open()"
+                #ffdate="ngModel"
+                required
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker2"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+            <div *ngIf="ffdate.invalid && (ffdate.dirty || ffdate.touched)" class="alert alert-danger">
+              <div *ngIf="ffdate.errors.required">La fecha de inicio es obligatoria.</div>
+            </div>
+          </div>
+          <div >
+            <button mat-raised-button type="button" class="button" [disabled]="formationForm.invalid" (click)="onAddToFormationGrid(formationForm)">
+              <a class="nav-link text-light">Agregar</a>
+              <mat-icon aria-hidden="false" class="nav-icon">add</mat-icon>
+            </button>
+          </div>
+        </div>
+      </form>
+      <ag-grid-angular
+      class="ag-theme-material data-grid"
+      #myGrid
+      [columnDefs]="columnDefsFormation"
+      [defaultColDef]="defaultColDef"
+      rowSelection="single"
+      [pagination]="true"
+      [paginationAutoPageSize]="true"
+      [suppressRowClickSelection]="true"
+      [rowData]="rowDataFormation"
+      [stopEditingWhenGridLosesFocus]="true"
+      [gridOptions]="formationGridOptions"
+    >
+    </ag-grid-angular>
+      <div class="grid-continue">
+        <button mat-raised-button type="button" class="button" (click)="onGoToNextStage()">
+          <a class="nav-link text-light">Continuar</a>
+          <mat-icon aria-hidden="false" class="nav-icon">arrow_forward</mat-icon>
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="Card2" *ngIf="stage == 5">
+    <mat-card-title>
+      Experiencias Laborales
+    </mat-card-title>
+    <mat-card-content>
+      <form  class="form-2" #experienceForm="ngForm">
+        <div class= "grouped-inputs">
+          <div class="input-container">
+            <mat-form-field appearance="fill">
+              <mat-label>Empresa</mat-label>
+              <input matInput type="text" [(ngModel)]="experience.experience_Business" name="ebussiness" #ebussiness="ngModel">
+            </mat-form-field>
+          <div *ngIf="ebussiness.invalid && (ebussiness.dirty || ebussiness.touched)" class="alert alert-danger">
+            <div *ngIf="ebussiness.errors.required">
+              La Empresa es obligatoria.
+            </div>
+          </div>
+          </div>
+            <div class="input-container">
+              <mat-form-field>
+                <mat-label>Puesto Ocupado</mat-label>
+                <mat-select
+                [(ngModel)]="experience.experience_Job.job_Id"
+                name="eJob"
+                [(value)]="experience.experience_Job.job_Id"
+                required
+                (selectionChange)="onSelectionChanged2($event)"
+                #eJob="ngModel">
+                  <mat-option *ngFor="let item of Jobs" [value]="item.job_Id">
+                    {{item.job_Name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <div *ngIf="eJob.invalid && (eJob.dirty || eJob.touched)" class="alert alert-danger">
+                <div *ngIf="eJob.errors.required">
+                  El puesto ocupado es obligatorio.
+                </div>
+              </div>
+            </div>
+            <div class="input-container">
+              <mat-form-field appearance="fill">
+                <mat-label>Salario</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  [(ngModel)]="pastSalaryString"
+                  name="pastSalary"
+                  required
+                  #pastSalary="ngModel"
+                  (blur)="onBlurPastSalary()"
+                />
+            </mat-form-field>
+            <div *ngIf="pastSalary.invalid && (pastSalary.dirty || pastSalary.touched)" class="alert alert-danger">
+              <div *ngIf="pastSalary.errors.required">
+                El Salario es obligatorio.
+              </div>
+            </div>
+            </div>
+          </div>
+        <div class="grouped-inputs">
+          <div class="input-container">
+            <mat-form-field appearance="fill">
+              <mat-label>Fecha de Inicio</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker3"
+                [(ngModel)]="experience.experience_Start_Date"
+                name="esdate"
+                (focus)="picker3.open()"
+                #esdate="ngModel"
+                required
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker3"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker3></mat-datepicker>
+            </mat-form-field>
+            <div *ngIf="esdate.invalid && (esdate.dirty || esdate.touched)" class="alert alert-danger">
+              <div *ngIf="esdate.errors.required">La fecha de inicio es obligatoria.</div>
+            </div>
+          </div>
+          <div class="input-container">
+            <mat-form-field appearance="fill">
+              <mat-label>Fecha de finalizacion</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker4"
+                [(ngModel)]="experience.experience_Final_Date"
+                name="efdate"
+                (focus)="picker4.open()"
+                #efdate="ngModel"
+                required
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker4"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker4></mat-datepicker>
+            </mat-form-field>
+            <div *ngIf="efdate.invalid && (efdate.dirty || efdate.touched)" class="alert alert-danger">
+              <div *ngIf="efdate.errors.required">La fecha de inicio es obligatoria</div>
+            </div>
+          </div>
+          <div >
+            <button mat-raised-button type="button" class="button" [disabled]="experienceForm.invalid" (click)="onAddToExperienceGrid(experienceForm)">
+              <a class="nav-link text-light">Agregar</a>
+              <mat-icon aria-hidden="false" class="nav-icon">add</mat-icon>
+            </button>
+          </div>
+        </div>
+      </form>
+      <ag-grid-angular
+      class="ag-theme-material data-grid"
+      #myGrid
+      [columnDefs]="columnDefsExperience"
+      [defaultColDef]="defaultColDef"
+      rowSelection="single"
+      [pagination]="true"
+      [paginationAutoPageSize]="true"
+      [suppressRowClickSelection]="true"
+      [rowData]="rowDataExperience"
+      [stopEditingWhenGridLosesFocus]="true"
+      [gridOptions]="experienceGridOptions"
+    >
+    </ag-grid-angular>
+      <div class="grid-continue">
+        <button mat-raised-button type="button" class="button" (click)="onGoToNextStage()">
+          <a class="nav-link text-light">Continuar</a>
+          <mat-icon aria-hidden="false" class="nav-icon">arrow_forward</mat-icon>
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="Card2" *ngIf="stage == 6">
+    <mat-card-title>
+      Idiomas
+    </mat-card-title>
+    <mat-card-content>
+      <form  class="form-2" #languajeForm="ngForm">
+        <div class="grouped-inputs">
+          <div class="input-container">
+            <mat-form-field>
+              <mat-label>Idioma</mat-label>
+              <mat-select
+              [(ngModel)]="languaje.languaje_Id"
+              name="lName"
+              [(value)]="languaje.languaje_Id"
+              required
+              #lName="ngModel">
+                <mat-option *ngFor="let item of Languajes" [value]="item.languaje_Id">
+                  {{item.languaje_Name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div *ngIf="lName.invalid && (lName.dirty || lName.touched)" class="alert alert-danger">
+              <div *ngIf="lName.errors.required">
+                El idioma es obligatorio.
+              </div>
+            </div>
+          </div>
+          <div >
+            <button mat-raised-button type="button" class="button" [disabled]="languajeForm.invalid" (click)="onAddToLanguajeGrid(languajeForm)">
+              <a class="nav-link text-light">Agregar</a>
+              <mat-icon aria-hidden="false" class="nav-icon">add</mat-icon>
+            </button>
+          </div>
+        </div>
+      </form>
+      <ag-grid-angular
+      class="ag-theme-material data-grid"
+      #myGrid
+      [columnDefs]="columnDefsLanguaje"
+      [defaultColDef]="defaultColDef"
+      rowSelection="single"
+      [pagination]="true"
+      [paginationAutoPageSize]="true"
+      [suppressRowClickSelection]="true"
+      [rowData]="rowDataLanguaje"
+      [stopEditingWhenGridLosesFocus]="true"
+      [gridOptions]="languajeGridOptions"
+    >
+    </ag-grid-angular>
+      <div class="grid-continue">
+        <button mat-raised-button type="button" class="button" (click)="onGoToNextStage()">
+          <a class="nav-link text-light">Continuar</a>
+          <mat-icon aria-hidden="false" class="nav-icon">arrow_forward</mat-icon>
+        </button>
+      </div>
     </mat-card-content>
   </mat-card>
 </div>

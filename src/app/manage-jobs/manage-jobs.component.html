@@ -1,0 +1,38 @@
+<div class="main-background">
+  <mat-card class="card">
+    <mat-card-title>
+      Trabajos
+    </mat-card-title>
+    <mat-card-content>
+      <div class="grid-buttons">
+        <button mat-raised-button class="add-row-button">
+          <mat-icon aria-hidden="false" class="nav-icon">add</mat-icon>
+          <a class="nav-link text-light" (click)="onAddRow()">Agregar Trabajos</a>
+        </button>
+        <button mat-raised-button class="delete-row-button">
+          <mat-icon aria-hidden="false" class="nav-icon">delete</mat-icon>
+          <a class="nav-link text-light" (click)="onDeleteRow()">Borrar Trabajo</a>
+        </button>
+      </div>
+      <ag-grid-angular
+      class="ag-theme-material data-grid"
+      #myGrid
+      [columnDefs]="columnDefs"
+      [defaultColDef]="defaultColDef"
+      [pagination]="true"
+      [paginationAutoPageSize]="true"
+      rowSelection="multiple"
+      [suppressRowClickSelection]="true"
+      [rowData]="rowData"
+      [stopEditingWhenGridLosesFocus]="true"
+      (cellValueChanged)="onCellValueChanged($event)"
+      (selectionChanged)="onSelectionChanged($event)"
+      [gridOptions]="gridOptions">
+    </ag-grid-angular>
+
+    <button mat-raised-button class= "save-button" *ngIf="gridEdited == true" (click)="onSaveChanges()">
+      <a class="nav-link text-light">Guardar Cambios</a>
+    </button>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -22,4 +22,16 @@ export class JobService {
   {
     return this.httpClient.get<JobModel>(this.baseUrl + "/" + id, {responseType: 'json'});
   }
+
+  createJob(job: JobModel): Observable<any> {
+    return this.httpClient.post(this.baseUrl, JSON.parse(JSON.stringify(job)))
+  }
+
+  deleteJob(id: number) {
+    return this.httpClient.delete(this.baseUrl + "/" + id)
+  }
+
+  updateJob(job: JobModel, id: number) {
+    return this.httpClient.put(this.baseUrl + "/" + id , JSON.parse(JSON.stringify(job)))
+  }
 }

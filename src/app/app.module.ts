@@ -24,6 +24,10 @@ import { AgGridModule } from "ag-grid-angular";
 import { CreateCandidateComponent } from './create-candidate/create-candidate.component';
 import { ManageCandidatesComponent } from './manage-candidates/manage-candidates.component';
 import { ManageEmployeesComponent } from './manage-employees/manage-employees.component';
+import { ManageLanguajesComponent } from './manage-languajes/manage-languajes.component';
+import { ManageDepartmentsComponent } from './manage-departments/manage-departments.component';
+import { ManageJobsComponent } from './manage-jobs/manage-jobs.component';
+import { JobRiskLevelComponent } from './cell-renderer/job-risk-level/job-risk-level.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +37,11 @@ import { ManageEmployeesComponent } from './manage-employees/manage-employees.co
     NavBarComponent,
     CreateCandidateComponent,
     ManageCandidatesComponent,
-    ManageEmployeesComponent
+    ManageEmployeesComponent,
+    ManageLanguajesComponent,
+    ManageDepartmentsComponent,
+    ManageJobsComponent,
+    JobRiskLevelComponent
   ],
   imports: [
     BrowserModule,

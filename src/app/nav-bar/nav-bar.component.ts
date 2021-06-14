@@ -34,4 +34,21 @@ export class NavBarComponent implements OnInit {
     });
   }
 
+  onLanguajeNav() {
+    this.router.navigate(["/manage-languajes"], {
+      queryParams: { userId: this.User.sysUser_Id, personId: this.User.sysUser_Person.person_Id },
+    });
+  }
+
+  onDepartmentNav() {
+    this.router.navigate(["/manage-departments"], {
+      queryParams: { userId: this.User.sysUser_Id, personId: this.User.sysUser_Person.person_Id },
+    });
+  }
+
+  onJobNav() {
+    this.router.navigate(["/manage-jobs"], {
+      queryParams: { userId: this.User.sysUser_Id, personId: this.User.sysUser_Person.person_Id },
+    });
+  }
 }

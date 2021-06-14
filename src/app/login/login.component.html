@@ -65,7 +65,7 @@
                 <form class="form2" #personform="ngForm">
                   <div class="input-container">
                     <mat-form-field>
-                      <input matInput type="text" [(ngModel)]="newUser.sysUser_Person.serson_Name" name="name" placeholder="Nombre Completo" #fullname="ngModel" required>
+                      <input matInput type="text" [(ngModel)]="newUser.sysUser_Person.person_Name" name="name" placeholder="Nombre Completo" #fullname="ngModel" required>
                       <button mat-button *ngIf="newUser.sysUser_Person.person_Name" matSuffix mat-icon-button aria-label="Clear" (click)="newUser.sysUser_Person.person_Name = ''">
                         <mat-icon aria-hidden="false" aria-label="Example home icon">close</mat-icon>
                       </button>

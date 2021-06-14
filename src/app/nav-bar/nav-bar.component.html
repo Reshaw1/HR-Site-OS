@@ -1,24 +1,44 @@
 <div class="login-nav-bar">
-  <button mat-button class="nav-button logo-img-container" [routerLinkActive]="['link-active']" [routerLink]="['/']">
+  <button mat-button class="nav-button logo-img-container" [routerLinkActive]="['link-active']" [routerLink]="['/home']">
     <img class="logo-img" src="../../assets/Images/HR Logo 3.png">
   </button>
-  <div class="title" [routerLink]="['/']">
+  <div class="title" [routerLink]="['/home']">
     <h1 >HR Site</h1>
   </div>
-  <div *ngIf="User.sysUser_Type == 'Candidate'" class="candidate-options">
+  <div *ngIf="User.sysUser_Type == 'Employee'" class="candidate-options">
     <button mat-raised-button class="button" (click)="onApplyNav()">
       <mat-icon aria-hidden="false" class="nav-icon">upload_file</mat-icon>
       <a class="nav-link text-light">Aplicar a un puesto</a>
     </button>
   </div>
-  <div *ngIf="User.sysUser_Type == 'Employee'" class="employee-options">
+  <div *ngIf="User.sysUser_Type == 'Candidate'" class="employee-options">
     <button mat-raised-button class="button" (click)="onCandNav()">
-      <mat-icon aria-hidden="false" class="nav-icon">edit</mat-icon>
-      <a class="nav-link text-light">Gestionar Candidatos</a>
+      <mat-icon aria-hidden="false" class="nav-icon">person</mat-icon>
+      <a class="nav-link text-light">Candidatos</a>
     </button>
+    </div>
+    <div *ngIf="User.sysUser_Type == 'Candidate'" class="employee-options2">
     <button mat-raised-button class="button" (click)="onEmpNav()">
-      <mat-icon aria-hidden="false" class="nav-icon">edit</mat-icon>
-      <a class="nav-link text-light">Gestionar Empleados</a>
+      <mat-icon aria-hidden="false" class="nav-icon">people</mat-icon>
+      <a class="nav-link text-light">Empleados</a>
+    </button>
+  </div>
+  <div *ngIf="User.sysUser_Type == 'Candidate'" class="employee-options2">
+    <button mat-raised-button class="button" (click)="onLanguajeNav()">
+      <mat-icon aria-hidden="false" class="nav-icon">language</mat-icon>
+      <a class="nav-link text-light">Lenguajes</a>
+    </button>
+  </div>
+  <div *ngIf="User.sysUser_Type == 'Candidate'" class="employee-options2">
+    <button mat-raised-button class="button" (click)="onDepartmentNav()">
+      <mat-icon aria-hidden="false" class="nav-icon">house</mat-icon>
+      <a class="nav-link text-light">Departamentos</a>
+    </button>
+  </div>
+  <div *ngIf="User.sysUser_Type == 'Candidate'" class="employee-options2">
+    <button mat-raised-button class="button" (click)="onJobNav()">
+      <mat-icon aria-hidden="false" class="nav-icon">work</mat-icon>
+      <a class="nav-link text-light">Trabajos</a>
     </button>
   </div>
   <div class="logout">
