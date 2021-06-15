@@ -1,1 +1,5 @@
-<p>job-risk-level works!</p>
+<mat-select name="risk" [(value)]="riskLevel" (selectionChange)="onSelectionChanged($event)" required>
+  <mat-option *ngFor="let item of riskLevels" [value]="item.risk_Id">
+      {{item.risk_Name}}
+  </mat-option>
+</mat-select>

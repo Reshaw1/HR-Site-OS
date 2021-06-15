@@ -28,6 +28,7 @@ import { ManageLanguajesComponent } from './manage-languajes/manage-languajes.co
 import { ManageDepartmentsComponent } from './manage-departments/manage-departments.component';
 import { ManageJobsComponent } from './manage-jobs/manage-jobs.component';
 import { JobRiskLevelComponent } from './cell-renderer/job-risk-level/job-risk-level.component';
+import { DepartmentComponent } from './cell-renderer/department/department.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { JobRiskLevelComponent } from './cell-renderer/job-risk-level/job-risk-l
     ManageLanguajesComponent,
     ManageDepartmentsComponent,
     ManageJobsComponent,
-    JobRiskLevelComponent
+    JobRiskLevelComponent,
+    DepartmentComponent
   ],
   imports: [
     BrowserModule,

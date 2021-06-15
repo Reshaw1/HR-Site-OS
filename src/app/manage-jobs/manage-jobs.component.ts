@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GridOptions } from 'ag-grid-community';
+import { DepartmentComponent } from '../cell-renderer/department/department.component';
+import { JobRiskLevelComponent } from '../cell-renderer/job-risk-level/job-risk-level.component';
 import { JobModel } from '../models/Job';
 import { DepartmentService } from '../other-services/department.service';
 import { JobService } from '../other-services/job.service';
@@ -23,11 +25,11 @@ export class ManageJobsComponent implements OnInit {
 
   columnDefs = [
     { field: 'job_Name', headerName: 'Nombre del Trabaja', colId: "0", width: 400, filter: "agTextColumnFilter", filterParams: DataGridFunctions.CodeFilterParams},
-    { field: 'job_Risk_Level', headerName: 'Nivel de Riesgo', colId: "1", width: 250, editable: false},
+    { field: 'job_Risk_Level', headerName: 'Nivel de Riesgo', colId: "1", width: 250, editable: false, cellRenderer: 'riskLevelCellRenderer'},
     { field: 'job_Min_Salary', headerName: 'Salario Minimo', colId: "2", width: 300, filter: "agTextColumnFilter", filterParams: DataGridFunctions.CodeFilterParams, valueFormatter: DataGridFunctions.currencyFormatter},
     { field: 'job_Max_Salary', headerName: 'Salario Maximo', colId: "3", width: 300, filter: "agTextColumnFilter", filterParams: DataGridFunctions.CodeFilterParams, valueFormatter: DataGridFunctions.currencyFormatter},
     { field: 'job_State', headerName: 'Estado', colId: "4", width: 225, filter: "agTextColumnFilter", filterParams: DataGridFunctions.CodeFilterParams,},
-    { field: "job_Department.department_Name", headerName: 'Departamento', width: 300, colId: "8", editable: false},
+    { field: "job_Department.department_Name", headerName: 'Departamento', cellRenderer: 'departmentCellRenderer', width: 300, colId: "8", editable: false},
     {
       field: "Gestionar",
       headerName: "",
@@ -39,7 +41,7 @@ export class ManageJobsComponent implements OnInit {
     },
     { field: "Modified", colId: "6", hide: true },
     { field: "job_Id", colId: "7", hide: true },
-    { field: "job_Department.department_Id", colId: "9", hide: true},
+    { field: "job_Department.department_Id", headerName: "ID_Departamento", colId: "9", hide: true },
 
   ];
 
@@ -50,6 +52,7 @@ export class ManageJobsComponent implements OnInit {
   }
 
   rowData: any = [];
+  frameworkComponents
 
   constructor(
     private jobService: JobService,
@@ -62,6 +65,10 @@ export class ManageJobsComponent implements OnInit {
       console.log(res);
       this.rowData = res;
     });
+    this.frameworkComponents = {
+      riskLevelCellRenderer: JobRiskLevelComponent,
+      departmentCellRenderer: DepartmentComponent
+    };
   }
 
   ngAfterContentInit() {
@@ -86,8 +93,8 @@ export class ManageJobsComponent implements OnInit {
     this.gridEdited = true;
     var node;
     node = params.node;
-    if (this.gridOptions.api.getValue("2", node) != "New") {
-      node.setDataValue("2", "true");
+    if (this.gridOptions.api.getValue("6", node) != "New") {
+      node.setDataValue("6", "true");
     }
   }
 
@@ -108,6 +115,10 @@ export class ManageJobsComponent implements OnInit {
         job_Max_Salary: "0",
         job_State: "Vacante",
         Modified: "New",
+        job_Department: { department_Name: "",
+                          department_Id: ""
+                        },
+        job_Id: "",
       },
     ];
     this.gridOptions.api.applyTransaction({ add: newRows });
@@ -130,7 +141,7 @@ export class ManageJobsComponent implements OnInit {
     var modifiedRows: Array<number> = [];
     for (let i = 0; i < this.gridOptions.api.getDisplayedRowCount(); i++) {
       row = this.gridOptions.api.getDisplayedRowAtIndex(i);
-      if (this.gridOptions.api.getValue("2", row) == "true") {
+      if (this.gridOptions.api.getValue("6", row) == "true") {
         modifiedRows.push(i);
       }
     }
@@ -140,14 +151,14 @@ export class ManageJobsComponent implements OnInit {
       row2 = this.gridOptions.api.getDisplayedRowAtIndex(x);
       this.job.job_Name = this.gridOptions.api.getValue("0", row2);
       this.job.job_Risk_Level = this.gridOptions.api.getValue("1", row2);
-      this.job.job_Min_Salary = this.gridOptions.api.getValue("2", row2)
+      this.job.job_Min_Salary = this.gridOptions.api.getValue("2", row2).toString()
       .trim()
       .replace(" ", "")
       .replace(",", "")
       .replace(",", "")
       .replace("DOP", "")
       .trim();
-      this.job.job_Max_Salary = this.gridOptions.api.getValue("3", row2)
+      this.job.job_Max_Salary = this.gridOptions.api.getValue("3", row2).toString()
       .trim()
       .replace(" ", "")
       .replace(",", "")
@@ -160,6 +171,7 @@ export class ManageJobsComponent implements OnInit {
         this.job.job_Department = res;
         this.jobService.updateJob(this.job, this.job.job_Id).subscribe(res => {
           window.alert("Se ha modificado correctamente")
+          //this.gridOptions.api.forEachNode(node => node.setDataValue("6", ""))
         }, err => {
           window.alert("Ha ocurrido un fallo en la modificacion")
         });
@@ -172,7 +184,7 @@ export class ManageJobsComponent implements OnInit {
       var newRows: Array<number> = [];
       for (let j = 0; j < this.gridOptions.api.getDisplayedRowCount(); j++) {
         row3 = this.gridOptions.api.getDisplayedRowAtIndex(j);
-        if (this.gridOptions.api.getValue("2", row3) == "New") {
+        if (this.gridOptions.api.getValue("6", row3) == "New") {
           newRows.push(j);
         }
       }
@@ -201,6 +213,7 @@ export class ManageJobsComponent implements OnInit {
           this.job.job_Department = res;
           this.jobService.createJob(this.job).subscribe(res => {
             window.alert("Se ha insertado correctamente")
+            //this.gridOptions.api.forEachNode(node => node.setDataValue("6", ""))
           }, err => {
             window.alert("Ha ocurrido un fallo en la insercion")
           })

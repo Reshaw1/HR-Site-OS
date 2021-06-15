@@ -129,6 +129,7 @@ export class ManageLanguajesComponent implements OnInit {
       this.languaje.languaje_Name = this.gridOptions.api.getValue("0", row2);
       this.languajeService.updateLanguaje(this.languaje, this.languaje.languaje_Id).subscribe(res => {
         window.alert("Se ha modificado correctamente")
+        //this.gridOptions.api.forEachNode(node => node.setDataValue("6", ""))
       }, err => {
         window.alert("Ha ocurrido un fallo en la modificacion")
       }
@@ -153,6 +154,7 @@ export class ManageLanguajesComponent implements OnInit {
         console.log(JSON.stringify(this.languaje));
         this.languajeService.createLanguaje(this.languaje).subscribe(res => {
           window.alert("Se ha insertado correctamente")
+          //this.gridOptions.api.forEachNode(node => node.setDataValue("6", ""))
         }, err => {
           window.alert("Ha ocurrido un fallo en la insercion")
         }

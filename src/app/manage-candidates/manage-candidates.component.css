@@ -1,0 +1,38 @@
+.main-background {
+  background-color: var(--accent-color);
+  height: 89.7%;
+  text-align: center;
+  min-height: fit-content;
+}
+
+.card {
+  display: inline-block;
+  width: 90%;
+  text-align: left;
+  margin-top: 1%;
+  height: 80vh;
+}
+
+.data-grid {
+  text-align: left;
+  width: 90%;
+  height: 60vh;
+  margin-left: 7.5%;
+}
+
+button {
+  background-color: var(--primary-color);
+}
+
+.grid-buttons {
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+
+.delete-row-button {
+  margin-left: 3%;
+}
+
+.save-button{
+  margin-top: 1%;
+}

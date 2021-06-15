@@ -130,6 +130,7 @@ export class ManageDepartmentsComponent implements OnInit {
       this.department.department_Name = this.gridOptions.api.getValue("0", row2);
       this.departmentService.updateDepartment(this.department, this.department.department_Id).subscribe(res => {
         window.alert("Se ha modificado correctamente")
+        //this.gridOptions.api.forEachNode(node => node.setDataValue("6", ""))
       }, err => {
         window.alert("Ha ocurrido un fallo en la modificacion")
       });
@@ -153,6 +154,7 @@ export class ManageDepartmentsComponent implements OnInit {
         console.log(JSON.stringify(this.department));
         this.departmentService.createDepartment(this.department).subscribe(res => {
           window.alert("Se ha insertado correctamente")
+          //this.gridOptions.api.forEachNode(node => node.setDataValue("6", ""))
         }, err => {
           window.alert("Ha ocurrido un fallo en la insercion")
         })
