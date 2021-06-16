@@ -22,4 +22,16 @@ export class EmployeeService {
   {
     return this.httpClient.get<EmployeeModel>(this.baseUrl + "/" + id, {responseType: 'json'});
   }
+
+  createEmployee(employee: EmployeeModel): Observable<any> {
+    return this.httpClient.post(this.baseUrl, JSON.parse(JSON.stringify(employee)))
+  }
+
+  deleteEmployee(id: number) {
+    return this.httpClient.delete(this.baseUrl + "/" + id)
+  }
+
+  updateEmployee(employee: EmployeeModel, id: number) {
+    return this.httpClient.put(this.baseUrl + "/" + id , JSON.parse(JSON.stringify(employee)))
+  }
 }

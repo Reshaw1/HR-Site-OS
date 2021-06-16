@@ -1,19 +1,52 @@
 <div class="main-background">
-  <mat-card class="card">
+  <mat-card class="card-2" *ngIf="!jobselection && !candidateSelected">
+    <mat-card-title>
+      Seleccione el Puesto
+    </mat-card-title>
+    <mat-card-content>
+      <form  #JobForm="ngForm">
+      <div class="input-container">
+        <mat-form-field>
+          <mat-label>Puesto Deseado</mat-label>
+          <mat-select
+          [(ngModel)]="selectedJob.job_Id"
+          name="desired job"
+          [(value)]="selectedJob.job_Id"
+          required
+          #desJob="ngModel">
+            <mat-option *ngFor="let item of Jobs" [value]="item.job_Id">
+              {{item.job_Name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button mat-raised-button class="search-button" type="submit" [disabled]="JobForm.invalid" (click)="onSelectJob()">
+          <mat-icon aria-hidden="false" class="nav-icon">search</mat-icon>
+          <a class="nav-link text-light">Buscar</a>
+        </button>
+      </div>
+      <div *ngIf="desJob.invalid && (desJob.dirty || desJob.touched)" class="alert alert-danger">
+        <div *ngIf="desJob.errors.required">
+          El puesto deseado es obligatorio.
+        </div>
+      </div>
+    </form>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="card" *ngIf="jobselection && !candidateSelected">
     <mat-card-title>
       Candidatos
     </mat-card-title>
     <mat-card-content>
-      <!-- <div class="grid-buttons">
-        <button mat-raised-button class="add-row-button">
+      <div class="grid-buttons">
+        <!-- <button mat-raised-button class="add-row-button">
           <mat-icon aria-hidden="false" class="nav-icon">add</mat-icon>
           <a class="nav-link text-light" (click)="onAddRow()">Agregar Trabajos</a>
-        </button>
+        </button> -->
         <button mat-raised-button class="delete-row-button">
-          <mat-icon aria-hidden="false" class="nav-icon">delete</mat-icon>
-          <a class="nav-link text-light" (click)="onDeleteRow()">Borrar Trabajo</a>
+          <mat-icon aria-hidden="false" class="nav-icon">arrow_backward</mat-icon>
+          <a class="nav-link text-light" (click)="onGoBack()">Atras</a>
         </button>
-      </div> -->
+      </div>
       <ag-grid-angular
       class="ag-theme-material data-grid"
       #myGrid
@@ -21,17 +54,77 @@
       [defaultColDef]="defaultColDef"
       [pagination]="true"
       [paginationAutoPageSize]="true"
-      rowSelection="multiple"
+      rowSelection="single"
       [suppressRowClickSelection]="true"
       [rowData]="rowData"
       [stopEditingWhenGridLosesFocus]="true"
+      (selectionChanged)="onSelectionChanged($event)"
       (cellValueChanged)="onCellValueChanged($event)"
       [gridOptions]="gridOptions">
     </ag-grid-angular>
 
-    <button mat-raised-button class= "save-button" *ngIf="gridEdited == true" (click)="onSaveChanges()">
-      <a class="nav-link text-light">Guardar Cambios</a>
+    <button mat-raised-button class= "save-button" *ngIf="selection" (click)="onViewDetails()">
+      <a class="nav-link text-light">Ver detalles</a>
     </button>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="card" *ngIf="candidateSelected">
+    <mat-card-title>
+      Informacion de {{ selectedCandidate.candidate_Person.person_Name }}
+    </mat-card-title>
+    <mat-card-content>
+      <div class="nav-menu">
+        <button mat-raised-button class="button" (click)="onShow('PI')">
+          <a class="nav-link text-light">Informacion Personal</a>
+        </button>
+        <button mat-raised-button class="button" (click)="onShow('F')">
+          <a class="nav-link text-light">Formacion</a>
+        </button>
+        <button mat-raised-button class="button" (click)="onShow('C')">
+          <a class="nav-link text-light">Competencias</a>
+        </button>
+        <button mat-raised-button class="button" (click)="onShow('E')">
+          <a class="nav-link text-light">Experiencias</a>
+        </button>
+        <button mat-raised-button class="button" (click)="onShow('I')">
+          <a class="nav-link text-light">Idiomas</a>
+        </button>
+      </div>
+      <ag-grid-angular
+      class="ag-theme-material data-grid2"
+      #myGrid
+      [columnDefs]="varColumnDefs"
+      [defaultColDef]="defaultColDef"
+      [pagination]="true"
+      [paginationAutoPageSize]="true"
+      rowSelection="single"
+      [suppressRowClickSelection]="true"
+      [rowData]="varRowData"
+      [stopEditingWhenGridLosesFocus]="true"
+      (selectionChanged)="onSelectionChanged($event)"
+      (cellValueChanged)="onCellValueChanged($event)"
+      [gridOptions]="gridOptions2">
+    </ag-grid-angular>
+
+    <div>
+      <form #salaryForm="ngForm">
+        <mat-form-field appearance="fill">
+          <mat-label>Salario Deseado</mat-label>
+          <input
+            matInput
+            type="text"
+            [(ngModel)]="salary"
+            name="Salary"
+            required
+            #Tsalary="ngModel"
+            (blur)="onBlurSalary()"
+          />
+      </mat-form-field>
+      <button mat-raised-button class= "save-button2" [disabled]="salaryForm.invalid" (click)="onHire()">
+        <a class="nav-link text-light">Contratar</a>
+      </button>
+      </form>
+    </div>
     </mat-card-content>
   </mat-card>
 </div>

@@ -13,11 +13,27 @@
   height: 80vh;
 }
 
+.card-2 {
+  display: inline-block;
+  width: 70%;
+  text-align: left;
+  margin-top: 1%;
+  height: 15vh;
+}
+
 .data-grid {
   text-align: left;
   width: 90%;
   height: 60vh;
   margin-left: 7.5%;
+}
+
+.data-grid2 {
+  text-align: left;
+  width: 90%;
+  height: 60vh;
+  margin-left: 7.5%;
+  margin-top: 2%;
 }
 
 button {
@@ -35,4 +51,18 @@ button {
 
 .save-button{
   margin-top: 1%;
+}
+
+.search-button {
+  margin-left: 5%;
+}
+
+.nav-menu {
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+}
+
+.save-button2 {
+  margin-left: 5%;
 }

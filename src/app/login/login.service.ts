@@ -22,4 +22,13 @@ export class LoginService {
   createUser(user: SysUserModel): Observable<any> {
     return this.httpClient.post(this.baseUrl, JSON.parse(JSON.stringify(user)))
   }
+
+  getUserbyPersonId(person_Id: number): Observable<SysUserModel[]>
+  {
+    return this.httpClient.get<SysUserModel[]>(this.baseUrl + "/getbyperson/" + person_Id, {responseType: 'json'})
+  }
+
+  updateUser(user: SysUserModel, id: number) {
+    return this.httpClient.put(this.baseUrl + "/" + id , JSON.parse(JSON.stringify(user)))
+  }
 }

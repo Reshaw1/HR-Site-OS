@@ -7,6 +7,5 @@ export class EmployeeModel {
   employee_Start_Date: Date;
   employee_Job: JobModel;
   employee_Salary: number;
-  employee_Email: string;
   employee_State: string;
 }

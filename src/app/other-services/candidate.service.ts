@@ -21,4 +21,12 @@ export class CandidateService {
   createCandidate(candidate: CandidateModel): Observable<any> {
     return this.httpClient.post(this.baseUrl, JSON.parse(JSON.stringify(candidate)))
   }
+
+  deleteCandidate(id: number) {
+    return this.httpClient.delete(this.baseUrl + "/" + id)
+  }
+
+  updateCandidate(candidate: CandidateModel, id: number) {
+    return this.httpClient.put(this.baseUrl + "/" + id , JSON.parse(JSON.stringify(candidate)))
+  }
 }
