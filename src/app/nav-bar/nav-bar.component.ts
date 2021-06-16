@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { SysUserModel } from '../models/SysUser';
 
@@ -10,6 +10,8 @@ import { SysUserModel } from '../models/SysUser';
 export class NavBarComponent implements OnInit {
 
   @Input("user") User: SysUserModel;
+
+  @Output() Logout = new EventEmitter<boolean>();
 
   constructor(private router: Router) { }
 
@@ -50,5 +52,9 @@ export class NavBarComponent implements OnInit {
     this.router.navigate(["/manage-jobs"], {
       queryParams: { userId: this.User.sysUser_Id, personId: this.User.sysUser_Person.person_Id },
     });
+  }
+
+  onLogout() {
+    this.Logout.emit(true);
   }
 }

@@ -36,6 +36,7 @@ export class CreateCandidateComponent implements OnInit {
   languaje: LanguajeModel;
 
   Jobs: JobModel[];
+  availableJobs: JobModel[];
   Employees: EmployeeModel[];
   Languajes: LanguajeModel[];
 
@@ -169,12 +170,13 @@ export class CreateCandidateComponent implements OnInit {
     });
 
     this.jobService.getJobs().subscribe(res => {
+      this.Jobs = res;
       var subArray = [];
       for(let job of res) {
         if(job.job_State == "Vacante")
         subArray.push(job)
       }
-      this.Jobs = subArray;
+      this.availableJobs = subArray;
       console.log(subArray);
     })
 

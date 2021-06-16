@@ -21,4 +21,10 @@ export class AppComponent {
     this.userAuth = true;
     this.router.navigateByUrl("/home");
   }
+
+  onLogout(event) {
+    this.userAuth = false;
+    this.authenthicatedUser = undefined;
+    this.router.navigateByUrl("/login");
+  }
 }

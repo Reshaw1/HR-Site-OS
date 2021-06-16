@@ -1,5 +1,5 @@
 <body>
   <app-login *ngIf="!userAuth" (userAuthenticated)="userAuthenticated($event)" ></app-login>
-  <app-nav-bar *ngIf="userAuth" [user]="authenthicatedUser"></app-nav-bar>
+  <app-nav-bar *ngIf="userAuth" [user]="authenthicatedUser" (Logout)="onLogout($event)"></app-nav-bar>
   <router-outlet *ngIf="userAuth"></router-outlet>
 </body>

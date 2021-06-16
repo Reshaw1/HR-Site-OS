@@ -7,7 +7,7 @@
       <form  #JobForm="ngForm">
       <div class="input-container">
         <mat-form-field>
-          <mat-label>Puesto Deseado</mat-label>
+          <mat-label>Puesto</mat-label>
           <mat-select
           [(ngModel)]="selectedJob.job_Id"
           name="desired job"
@@ -24,11 +24,11 @@
           <a class="nav-link text-light">Buscar</a>
         </button>
       </div>
-      <div *ngIf="desJob.invalid && (desJob.dirty || desJob.touched)" class="alert alert-danger">
+      <!-- <div *ngIf="desJob.invalid && (desJob.dirty || desJob.touched)" class="alert alert-danger">
         <div *ngIf="desJob.errors.required">
           El puesto deseado es obligatorio.
         </div>
-      </div>
+      </div> -->
     </form>
     </mat-card-content>
   </mat-card>
@@ -42,9 +42,9 @@
           <mat-icon aria-hidden="false" class="nav-icon">add</mat-icon>
           <a class="nav-link text-light" (click)="onAddRow()">Agregar Trabajos</a>
         </button> -->
-        <button mat-raised-button class="delete-row-button">
-          <mat-icon aria-hidden="false" class="nav-icon">arrow_backward</mat-icon>
-          <a class="nav-link text-light" (click)="onGoBack()">Atras</a>
+        <button mat-raised-button class="delete-row-button" (click)="onGoBack()">
+          <mat-icon aria-hidden="false" class="nav-icon" (click)="onGoBack()">arrow_backward</mat-icon>
+          <a class="nav-link text-light">Atras</a>
         </button>
       </div>
       <ag-grid-angular

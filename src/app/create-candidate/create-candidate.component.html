@@ -71,7 +71,7 @@
               required
               (selectionChange)="onSelectionChanged($event)"
               #desJob="ngModel">
-                <mat-option *ngFor="let item of Jobs" [value]="item.job_Id">
+                <mat-option *ngFor="let item of availableJobs" [value]="item.job_Id">
                   {{item.job_Name}}
                 </mat-option>
               </mat-select>

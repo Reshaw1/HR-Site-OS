@@ -85,7 +85,9 @@ export class LoginComponent implements OnInit {
     this.newUser.sysUser_Person.person_Card_Id = this.newUser.sysUser_Person.person_Card_Id.replace("-", "").replace("-", "");
     this.loginService.createUser(this.newUser).subscribe(res => {
       console.log("User Created")
+      window.alert("El Usuario se ha creado correctamente");
     }, err => {
+      window.alert("Ha ocurrido un fallo en la creacion del usuario");
       console.log(err)
     })
 
