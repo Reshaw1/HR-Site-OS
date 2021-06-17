@@ -66,6 +66,9 @@
     <button mat-raised-button class= "save-button" *ngIf="selection" (click)="onViewDetails()">
       <a class="nav-link text-light">Ver detalles</a>
     </button>
+    <button mat-raised-button class= "csv-button" (click)="onExportToCSV()">
+      <a class="nav-link text-light">Exportar a CSV</a>
+    </button>
     </mat-card-content>
   </mat-card>
   <mat-card class="card" *ngIf="candidateSelected">

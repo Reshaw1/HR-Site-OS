@@ -33,6 +33,9 @@
     <button mat-raised-button class= "save-button" *ngIf="gridEdited == true" (click)="onSaveChanges()">
       <a class="nav-link text-light">Guardar Cambios</a>
     </button>
+    <button mat-raised-button class= "csv-button" (click)="onExportToCSV()">
+      <a class="nav-link text-light">Exportar a CSV</a>
+    </button>
     </mat-card-content>
   </mat-card>
 </div>

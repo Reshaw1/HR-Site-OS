@@ -161,4 +161,8 @@ export class ManageLanguajesComponent implements OnInit {
         )
       }
   }
+
+  onExportToCSV() {
+    this.gridOptions.api.exportDataAsCsv();
+  }
 }

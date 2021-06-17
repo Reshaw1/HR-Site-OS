@@ -220,4 +220,8 @@ export class ManageJobsComponent implements OnInit {
       })
     }
   }
+
+  onExportToCSV() {
+    this.gridOptions.api.exportDataAsCsv();
+  }
 }

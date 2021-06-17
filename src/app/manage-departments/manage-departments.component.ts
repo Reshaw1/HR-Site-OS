@@ -160,4 +160,8 @@ export class ManageDepartmentsComponent implements OnInit {
         })
       }
   }
+
+  onExportToCSV() {
+    this.gridOptions.api.exportDataAsCsv();
+  }
 }

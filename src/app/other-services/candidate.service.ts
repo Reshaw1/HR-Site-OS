@@ -29,4 +29,9 @@ export class CandidateService {
   updateCandidate(candidate: CandidateModel, id: number) {
     return this.httpClient.put(this.baseUrl + "/" + id , JSON.parse(JSON.stringify(candidate)))
   }
+
+  getCandidatebyPersonId(person_Id: number): Observable<CandidateModel[]>
+  {
+    return this.httpClient.get<CandidateModel[]>(this.baseUrl + "/getbyperson/" + person_Id, {responseType: 'json'})
+  }
 }

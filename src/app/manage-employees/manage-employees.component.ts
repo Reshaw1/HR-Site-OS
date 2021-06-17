@@ -202,4 +202,8 @@ export class ManageEmployeesComponent implements OnInit {
           })
     }
   }
+
+  onExportToCSV() {
+    this.gridOptions.api.exportDataAsCsv();
+  }
 }

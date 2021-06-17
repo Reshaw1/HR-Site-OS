@@ -29,6 +29,7 @@ import { ManageDepartmentsComponent } from './manage-departments/manage-departme
 import { ManageJobsComponent } from './manage-jobs/manage-jobs.component';
 import { JobRiskLevelComponent } from './cell-renderer/job-risk-level/job-risk-level.component';
 import { DepartmentComponent } from './cell-renderer/department/department.component';
+import { ViewCandidateComponent } from './view-candidate/view-candidate.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { DepartmentComponent } from './cell-renderer/department/department.compo
     ManageDepartmentsComponent,
     ManageJobsComponent,
     JobRiskLevelComponent,
-    DepartmentComponent
+    DepartmentComponent,
+    ViewCandidateComponent
   ],
   imports: [
     BrowserModule,

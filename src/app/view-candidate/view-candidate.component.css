@@ -1,0 +1,73 @@
+.main-background {
+  background-color: var(--accent-color);
+  height: 89.7%;
+  text-align: center;
+  min-height: fit-content;
+}
+
+.card {
+  display: inline-block;
+  width: 90%;
+  text-align: left;
+  margin-top: 1%;
+  height: 80vh;
+}
+
+.card-2 {
+  display: inline-block;
+  width: 70%;
+  text-align: left;
+  margin-top: 1%;
+  height: 15vh;
+}
+
+.data-grid {
+  text-align: left;
+  width: 90%;
+  height: 60vh;
+  margin-left: 7.5%;
+}
+
+.data-grid2 {
+  text-align: left;
+  width: 90%;
+  height: 60vh;
+  margin-left: 7.5%;
+  margin-top: 2%;
+}
+
+button {
+  background-color: var(--primary-color);
+}
+
+.grid-buttons {
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+
+.delete-row-button {
+  margin-left: 3%;
+}
+
+.save-button{
+  margin-top: 1%;
+}
+
+.search-button {
+  margin-left: 5%;
+}
+
+.nav-menu {
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+}
+
+.save-button2 {
+  margin-left: 5%;
+}
+
+.csv-button {
+  margin-top: 1%;
+  margin-left: 5%;
+}

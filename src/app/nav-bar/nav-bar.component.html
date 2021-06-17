@@ -11,6 +11,12 @@
       <a class="nav-link text-light">Aplicar a un puesto</a>
     </button>
   </div>
+  <div *ngIf="User.sysUser_Type == 'Candidate'" class="employee-options2">
+    <button mat-raised-button class="button" (click)="onViewNav()">
+      <mat-icon aria-hidden="false" class="nav-icon">upload_file</mat-icon>
+      <a class="nav-link text-light">Ver resumen de datos</a>
+    </button>
+  </div>
   <div *ngIf="User.sysUser_Type == 'Employee'" class="employee-options">
     <button mat-raised-button class="button" (click)="onCandNav()">
       <mat-icon aria-hidden="false" class="nav-icon">person</mat-icon>

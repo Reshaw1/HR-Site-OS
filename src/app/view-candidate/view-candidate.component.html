@@ -1,0 +1,41 @@
+<div class="main-background">
+  <mat-card class="card">
+    <mat-card-title *ngIf="selectedCandidate.candidate_Person" >
+      Informacion de {{ selectedCandidate.candidate_Person.person_Name }}
+    </mat-card-title>
+    <mat-card-content>
+      <div class="nav-menu">
+        <button mat-raised-button class="button" (click)="onShow('PI')">
+          <a class="nav-link text-light">Informacion Personal</a>
+        </button>
+        <button mat-raised-button class="button" (click)="onShow('F')">
+          <a class="nav-link text-light">Formacion</a>
+        </button>
+        <button mat-raised-button class="button" (click)="onShow('C')">
+          <a class="nav-link text-light">Competencias</a>
+        </button>
+        <button mat-raised-button class="button" (click)="onShow('E')">
+          <a class="nav-link text-light">Experiencias</a>
+        </button>
+        <button mat-raised-button class="button" (click)="onShow('I')">
+          <a class="nav-link text-light">Idiomas</a>
+        </button>
+      </div>
+      <ag-grid-angular
+      class="ag-theme-material data-grid2"
+      #myGrid
+      [columnDefs]="varcolumnDefs"
+      [defaultColDef]="defaultColDef"
+      [pagination]="true"
+      [paginationAutoPageSize]="true"
+      rowSelection="single"
+      [suppressRowClickSelection]="true"
+      [rowData]="varRowData"
+      [stopEditingWhenGridLosesFocus]="true"
+      (selectionChanged)="onSelectionChanged($event)"
+      (cellValueChanged)="onCellValueChanged($event)"
+      [gridOptions]="gridOptions2">
+    </ag-grid-angular>
+    </mat-card-content>
+  </mat-card>
+</div>

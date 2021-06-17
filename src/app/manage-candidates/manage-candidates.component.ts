@@ -311,4 +311,8 @@ export class ManageCandidatesComponent implements OnInit {
     }
 
   }
+
+  onExportToCSV() {
+    this.gridOptions.api.exportDataAsCsv();
+  }
 }

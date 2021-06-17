@@ -24,6 +24,12 @@ export class NavBarComponent implements OnInit {
     });
   }
 
+  onViewNav() {
+    this.router.navigate(["/view-candidate"], {
+      queryParams: { userId: this.User.sysUser_Id, personId: this.User.sysUser_Person.person_Id },
+    });
+  }
+
   onCandNav() {
     this.router.navigate(["/manage-candidates"], {
       queryParams: { userId: this.User.sysUser_Id, personId: this.User.sysUser_Person.person_Id },
